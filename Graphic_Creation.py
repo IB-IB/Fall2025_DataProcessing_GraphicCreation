@@ -13,14 +13,51 @@ import matplotlib.dates as mdates
 import numpy as np
 import scipy as sp
 
+#CSV TITLES
 
-df = pd.read_csv('.csv') #open a csv within GH folder for data process.
+#UniqueID	BottleNo	True Bottle ID	NumID	Location No	Distance From Dam
+	
+#Lake ID (4 dig.)	Sampling Type (B/S)	NH4Results	NOxResults	PO4Results	
+
+#TPResults	NH4 BDL	Nox BDL	PO4 BDL	TP BDL	Microcystin Concentration	
+
+#Chla (Avg 24 and on)	Pheo (Avg 24 and on)	NPOC (AVG) mg/L? [TOC]	
+
+#TN (AVG) mg/L? [TOC]	Secchi Depth (m)	Lat	Long	Month	Day	Year
+	
+#Exclude	Date	FLIR
+
+df = pd.read_csv('Substitute_Database_All_Samples2025_D.csv') #open a csv within GH folder for data process.
 
 print(df)
 
-df_ch = df.dropna(subset='Chla (ug/L)') #dropna gets rid of nan vlues
+df_ch = df.dropna(subset='Chla (Avg 24 and on)') #dropna gets rid of nan vlues
+df_dfd = df.dropna(subset='Distance From Dam') #dropna gets rid of nan vlues
 
-'''CHLA Scatterplot'''
-vd = df_ch[['Chla (ug/L)', 'Distance from Dam']].groupby('Distance from Dam').mean()
-# ^ special function that subets and creates a new 
+"""DATA CHECKING"""
+
+'''
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.scatterplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=df_ch) 
+adgb.set_xlabel('Distance from Dam (m)')
+adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
+adgb.set_title("Average Chl-a Recorded Distance from the Dam (2023-2025)")
+#plt.show()
+'''
+
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.boxplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=df_ch, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb.set_xlabel('Distance from Dam (m)')
+adgb.set_ylabel('Chl-a Concentration (ug/L)')
+adgb.set_title("Shafer: Chl-a Recorded Distance from the Dam over Summer 2024")
+adgb.set_ylim(0,90)
+plt.savefig('ChlaSHAF.png', dpi = 400)
+plt.show()
+
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.scatterplot(x='TP BDL', y='Chla (Avg 24 and on)', data=df_ch) 
+adgb.set_xlabel('TP BDL (ppm)')
+adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
+adgb.set_title("TP vs. Chl-a (2023-2025)")
+#plt.show()
 
