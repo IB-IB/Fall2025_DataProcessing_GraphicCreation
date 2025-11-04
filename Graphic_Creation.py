@@ -28,6 +28,9 @@ import scipy as sp
 	
 #Exclude	Date	FLIR
 
+""" https://stackoverflow.com/questions/29779079/adding-a-scatter-of-points-to-a-boxplot-using-matplotlib """
+#jitter plot
+
 print('HAHAHA NEW ONE')
 
 df = pd.read_csv('2023_2025_YSI_Included.csv') #open a csv within GH folder for data process.
