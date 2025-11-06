@@ -33,12 +33,16 @@ import scipy as sp
 
 print('HAHAHA NEW ONE')
 
-df = pd.read_csv('2023_2025_YSI_Included.csv') #open a csv within GH folder for data process.
+df_original = pd.read_csv('2023_2025_YSI_Included.csv') #open a csv within GH folder for data process.
+df = df_original[df_original['Sampling Type (B/S)'] == 'Boat'] #boat only
 df = df.replace('NaN', np.nan) #from DK replaces NaN with numpy NaN
 df['Chla (Avg 24 and on)'] = df['Chla (Avg 24 and on)'].astype(np.float64) #sets type to float from DK
 print (df.info())
 
 df_M = df[df['Lake ID (4 dig.)'] == 'MISS']
+df_M_mc = df_M.dropna(subset='Microcystin BDL') # making sure there iosn't any empty mc data included
+df_M_ch = df_M.dropna(subset='Chla (Avg 24 and on)') # same but for chla
+
 #print(df)
 #https://www.geeksforgeeks.org/pandas/ways-to-filter-pandas-dataframe-by-column-values/
 #filter data frames
@@ -53,7 +57,7 @@ df_23_M = df_23[df_23['Lake ID (4 dig.)'] == 'MISS']
 #print(df_24_M)
 
 c_23 = df_23_M.dropna(subset='Chla (Avg 24 and on)')
-Mc_23 = df_23_M.dropna(subset='Microcystin Concentration')
+Mc_23 = df_23_M.dropna(subset='Microcystin BDL')
 
 #2025 = 108 rows of data
 df_25 = df[df['Year']>2024]
@@ -62,8 +66,8 @@ df_25_M = df_25[df_25['Lake ID (4 dig.)'] == 'MISS']
 #print(df_25_M)
 
 c_25 = df_25_M.dropna(subset='Chla (Avg 24 and on)')
-Mc_25 = df_25_M.dropna(subset='Microcystin Concentration')
-
+Mc_25 = df_25_M.dropna(subset='Microcystin BDL')
+                
 #2024 - 288 rows of data
 df_24 = df[df['Year']==2024]
 #print(df_24)
@@ -71,7 +75,7 @@ df_24_M = df_24[df_24['Lake ID (4 dig.)'] == 'MISS']
 #print(df_24_M)
 
 c_24 = df_24_M.dropna(subset='Chla (Avg 24 and on)')
-Mc_24 = df_24_M.dropna(subset='Microcystin Concentration')
+Mc_24 = df_24_M.dropna(subset='Microcystin BDL')
 
 
 """Graphics"""
@@ -79,18 +83,18 @@ Mc_24 = df_24_M.dropna(subset='Microcystin Concentration')
 # 2025 Additional
 
 plt.figure(figsize=(12,6)) #space out recording
-adgb = sns.boxplot(x='Date', y='Microcystin Concentration', data=df_M, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=df_M_mc, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
 adgb.set_ylabel('Microcystin Concentration (ug/L)')
 adgb.set_title("2023-2025 Microcystin by Date")
-adgb.set_ylim(0, 50)
+adgb.set_ylim(0, 85)
 plt.savefig('BoxMcM23-25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 
 plt.figure(figsize=(12,6)) #space out recording
-adgb = sns.boxplot(x='Date', y='Chla (Avg 24 and on)', data=df_M, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.boxplot(x='Date', y='Chla (Avg 24 and on)', data=df_M_ch, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
@@ -136,7 +140,7 @@ plt.savefig('BoxChlaMISS25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400
 plt.show()
 
 plt.figure(figsize=(12,6)) #space out recording
-adgb = sns.boxplot(x='Distance From Dam', y='Microcystin Concentration', data=Mc_25, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_25, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
@@ -183,7 +187,7 @@ plt.savefig('BoxChlaMISS24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400
 plt.show()
 
 plt.figure(figsize=(12,6)) #space out recording
-adgb = sns.boxplot(x='Distance From Dam', y='Microcystin Concentration', data=Mc_24, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_24, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
@@ -194,7 +198,7 @@ plt.savefig('BoxMcMISS24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 
 plt.figure(figsize=(12,6)) #space out recording
-adgb = sns.boxplot(x='Distance From Dam', y='Microcystin Concentration', data=Mc_24, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_24, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
@@ -244,7 +248,7 @@ plt.savefig('BoxChlaMISS23.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400
 plt.show()
 
 plt.figure(figsize=(12,6)) #space out recording
-adgb = sns.boxplot(x='Distance From Dam', y='Microcystin Concentration', data=Mc_23, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_23, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
@@ -255,7 +259,7 @@ plt.savefig('BoxMcMISS23.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 
 plt.figure(figsize=(12,6)) #space out recording
-adgb = sns.boxplot(x='Distance From Dam', y='Microcystin Concentration', data=Mc_23, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_23, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
