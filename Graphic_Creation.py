@@ -42,7 +42,7 @@ print (df.info())
 df_M = df[df['Lake ID (4 dig.)'] == 'MISS']
 df_M_mc = df_M.dropna(subset='Microcystin BDL') # making sure there iosn't any empty mc data included
 df_M_ch = df_M.dropna(subset='Chla (Avg 24 and on)') # same but for chla
-
+df_M_ch_T = df_M.dropna(subset='TURBIDITYFNU')
 #print(df)
 #https://www.geeksforgeeks.org/pandas/ways-to-filter-pandas-dataframe-by-column-values/
 #filter data frames
@@ -79,11 +79,48 @@ Mc_24 = df_24_M.dropna(subset='Microcystin BDL')
 
 
 """Graphics"""
+# making double box plots, and swarms: https://www.datacamp.com/tutorial/python-boxplots
+
 
 # 2025 Additional
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=df_M_ch_T) 
+adgb.set_xlabel('Turbidity (FNU)')
+adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
+adgb.set_title("Turbditiy v Avg Chla (2023-2025)")
+adgb.set_ylim(0,140)
+adgb.set_xlim(0,100)
+plt.savefig('TurvChla_23.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
+plt.show()
+plt.clf()
 
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=df_M_mc, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.swarmplot(x='Date', y='Microcystin BDL', data=df_M_mc, color='orange', alpha=0.7)
+#https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
+plt.xticks(x='Date', rotation=45)
+adgb.set_xlabel('Date')
+adgb.set_ylabel('Microcystin Concentration (ug/L)')
+adgb.set_title("2023-2025 Microcystin by Date")
+adgb.set_ylim(0, 85)
+plt.savefig('SwarmBoxMcM23-25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
+plt.show()
+
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.boxplot(x='Date', y='Chla (Avg 24 and on)', data=df_M_ch, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+adgb = sns.swarmplot(x='Date', y='Chla (Avg 24 and on)', data=df_M_ch, color='orange', alpha=0.7)
+#https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
+plt.xticks(x='Date', rotation=45)
+adgb.set_xlabel('Date')
+adgb.set_ylabel('Chla Concentration (ug/L)')
+adgb.set_title("2023-2025 Chla by Date")
+adgb.set_ylim(0, 160)
+plt.savefig('SwarmBoxCHLAM23-25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
+plt.show()
+
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=df_M_mc, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+#adgb = sns.swarmplot(x='Date', y='Microcystin BDL', data=df_M_mc, color='orange', alpha=0.7)
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
@@ -95,6 +132,7 @@ plt.show()
 
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.boxplot(x='Date', y='Chla (Avg 24 and on)', data=df_M_ch, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
+#adgb = sns.swarmplot(x='Date', y='Chla (Avg 24 and on)', data=df_M_ch, color='orange', alpha=0.7)
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
@@ -107,6 +145,17 @@ plt.show()
 # LOOK 2025
 #
 #
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=c_25) 
+adgb.set_xlabel('Turbidity (FNU)')
+adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
+adgb.set_title("Turbditiy v Avg Chla 2025")
+adgb.set_ylim(0,140)
+adgb.set_xlim(0,100)
+plt.savefig('TurvChla_25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
+plt.show()
+plt.clf()
+
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_25) 
 adgb.set_xlabel('Distance from Dam (m)')
@@ -156,7 +205,7 @@ adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=Mc_25, showmeans=True, me
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
 adgb.set_ylabel('Microcystin Concentration (ug/L)')
-adgb.set_title("2023-2025 Microcystin by Date")
+adgb.set_title("2025 Microcystin by Date")
 adgb.set_ylim(0, 85)
 plt.savefig('BoxMcM25_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
@@ -167,7 +216,7 @@ adgb = sns.boxplot(x='Date', y='Chla (Avg 24 and on)', data=c_25, showmeans=True
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
 adgb.set_ylabel('Chla Concentration (ug/L)')
-adgb.set_title("2023-2025 Chla by Date")
+adgb.set_title("2025 Chla by Date")
 adgb.set_ylim(0, 160)
 plt.savefig('BoxCH_M25_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
@@ -175,6 +224,17 @@ plt.show()
 # LOOK 2024
 #
 #
+
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=c_24) 
+adgb.set_xlabel('Turbidity (FNU)')
+adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
+adgb.set_title("Turbditiy v Avg Chla 2024")
+adgb.set_ylim(0,140)
+adgb.set_xlim(0,100)
+plt.savefig('TurvChla_24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
+plt.show()
+plt.clf()
 
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_24) 
@@ -236,7 +296,7 @@ adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=Mc_24, showmeans=True, me
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
 adgb.set_ylabel('Microcystin Concentration (ug/L)')
-adgb.set_title("2023-2025 Microcystin by Date")
+adgb.set_title("2024 Microcystin by Date")
 adgb.set_ylim(0, 85)
 plt.savefig('BoxMcM24_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
@@ -247,7 +307,7 @@ adgb = sns.boxplot(x='Date', y='Chla (Avg 24 and on)', data=c_24, showmeans=True
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
 adgb.set_ylabel('Chla Concentration (ug/L)')
-adgb.set_title("2023-2025 Chla by Date")
+adgb.set_title("2024 Chla by Date")
 adgb.set_ylim(0, 160)
 plt.savefig('BoxCH_M24_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
@@ -255,6 +315,16 @@ plt.show()
 # LOOK 2023
 #
 #
+plt.figure(figsize=(12,6)) #space out recording
+adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=c_23) 
+adgb.set_xlabel('Turbidity (FNU)')
+adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
+adgb.set_title("Turbditiy v Avg Chla 2023")
+adgb.set_ylim(0,140)
+adgb.set_xlim(0,100)
+plt.savefig('TurvChla_23.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
+plt.show()
+plt.clf()
 
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_23) 
@@ -318,7 +388,7 @@ adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=Mc_23, showmeans=True, me
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
 adgb.set_ylabel('Microcystin Concentration (ug/L)')
-adgb.set_title("2023-2025 Microcystin by Date")
+adgb.set_title("2023 Microcystin by Date")
 adgb.set_ylim(0, 85)
 plt.savefig('BoxMcM23_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
@@ -329,7 +399,7 @@ adgb = sns.boxplot(x='Date', y='Chla (Avg 24 and on)', data=c_23, showmeans=True
 plt.xticks(x='Date', rotation=45)
 adgb.set_xlabel('Date')
 adgb.set_ylabel('Chla Concentration (ug/L)')
-adgb.set_title("2023-2025 Chla by Date")
+adgb.set_title("2023 Chla by Date")
 adgb.set_ylim(0, 160)
 plt.savefig('BoxCH_M23_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
