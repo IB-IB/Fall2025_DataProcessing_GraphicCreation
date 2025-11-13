@@ -75,11 +75,14 @@ df_24_M = df_24[df_24['Lake ID (4 dig.)'] == 'MISS']
 #print(df_24_M)
 
 c_24 = df_24_M.dropna(subset='Chla (Avg 24 and on)')
-Mc_24 = df_24_M.dropna(subset='Microcystin BDL')
+Mc_24 = df_24_M.dropna(subset='Microcystin BDL') 
 
 
 """Graphics"""
 # making double box plots, and swarms: https://www.datacamp.com/tutorial/python-boxplots
+
+sns.set(font_scale=2) #set font size larger https://www.statology.org/seaborn-font-size/
+sns.set_style("whitegrid", {'axes.grid':False}) # get rid of grey gid https://stackoverflow.com/questions/26868304/how-to-get-rid-of-grid-lines-when-plotting-with-seaborn-pandas-with-secondary
 
 
 # 2025 Additional
