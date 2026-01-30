@@ -84,7 +84,7 @@ Mc_24 = df_24_M.dropna(subset='Microcystin BDL')
 sns.set(font_scale=2) #set font size larger https://www.statology.org/seaborn-font-size/
 sns.set_style("whitegrid", {'axes.grid':False}) # get rid of grey gid https://stackoverflow.com/questions/26868304/how-to-get-rid-of-grid-lines-when-plotting-with-seaborn-pandas-with-secondary
 
-
+'''
 # 2025 Additional
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=df_M_ch_T) 
@@ -96,6 +96,7 @@ adgb.set_xlim(0,100)
 plt.savefig('TurvChla_23.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 plt.clf()
+'''
 
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=df_M_mc, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
@@ -148,6 +149,7 @@ plt.show()
 # LOOK 2025
 #
 #
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=c_25) 
 adgb.set_xlabel('Turbidity (FNU)')
@@ -158,17 +160,17 @@ adgb.set_xlim(0,100)
 plt.savefig('TurvChla_25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 plt.clf()
-
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_25) 
 adgb.set_xlabel('Distance from Dam (m)')
 adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
-adgb.set_title("Average Chl-a Recorded Distance from the Dam (2025)")
+#adgb.set_title("Average Chl-a Recorded Distance from the Dam (2025)")
 adgb.set_ylim(0,140)
 plt.savefig('DfDChla_25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 plt.clf() #from DK clean figure
-
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='TP BDL', y='Chla (Avg 24 and on)', data=c_25) 
 adgb.set_xlabel('TP BDL (ppm)')
@@ -179,14 +181,14 @@ adgb.set_xlim(0,1.1)
 plt.savefig('TPvChla_25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 plt.clf()
-
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.boxplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_25, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
 adgb.set_ylabel('Chl-a Concentration (ug/L)')
-adgb.set_title("Mississinewa: Chl-a Recorded Distance from the Dam over Summer 2025")
+#adgb.set_title("Mississinewa: Chl-a Recorded Distance from the Dam over Summer 2025")
 adgb.set_ylim(0,140)
 plt.savefig('BoxChlaMISS25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
@@ -197,11 +199,11 @@ adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_25, showm
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
 adgb.set_ylabel('Microcystin Concentration (ug/L)')
-adgb.set_title("Mississinewa: Microcystin Distance from the Dam over Summer 2025")
+#adgb.set_title("Mississinewa: Microcystin Distance from the Dam over Summer 2025")
 adgb.set_ylim(0, 40)
 plt.savefig('BoxMcMISS25.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
-
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.boxplot(x='Date', y='Microcystin BDL', data=Mc_25, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
@@ -223,11 +225,11 @@ adgb.set_title("2025 Chla by Date")
 adgb.set_ylim(0, 160)
 plt.savefig('BoxCH_M25_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
-
+'''
 # LOOK 2024
 #
 #
-
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=c_24) 
 adgb.set_xlabel('Turbidity (FNU)')
@@ -238,17 +240,17 @@ adgb.set_xlim(0,100)
 plt.savefig('TurvChla_24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 plt.clf()
-
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_24) 
 adgb.set_xlabel('Distance from Dam (m)')
 adgb.set_ylabel('Average Chl-a Concentration (ug/L)')
-adgb.set_title("Average Chl-a Recorded Distance from the Dam (2024)")
+#adgb.set_title("Average Chl-a Recorded Distance from the Dam (2024)")
 adgb.set_ylim(0,140)
 plt.savefig('DfDChla_24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 plt.clf() #from DK clean figure
-
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='TP BDL', y='Chla (Avg 24 and on)', data=c_24) 
 adgb.set_xlabel('TP BDL (ppm)')
@@ -259,6 +261,7 @@ adgb.set_xlim(0,1.1)
 plt.savefig('TPvChla_24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 plt.clf()
+'''
 
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.boxplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_24, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
@@ -266,7 +269,7 @@ adgb = sns.boxplot(x='Distance From Dam', y='Chla (Avg 24 and on)', data=c_24, s
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
 adgb.set_ylabel('Chl-a Concentration (ug/L)')
-adgb.set_title("Mississinewa: Chl-a Recorded Distance from the Dam over Summer 2024")
+#adgb.set_title("Mississinewa: Chl-a Recorded Distance from the Dam over Summer 2024")
 adgb.set_ylim(0,140)
 plt.savefig('BoxChlaMISS24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
@@ -277,11 +280,12 @@ adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_24, showm
 plt.xticks(x='Distance from Dam', rotation=45)
 adgb.set_xlabel('Distance from Dam (m)')
 adgb.set_ylabel('Microcystin Concentration (ug/L)')
-adgb.set_title("Mississinewa: Microcystin Distance from the Dam over Summer 2024")
+#adgb.set_title("Mississinewa: Microcystin Distance from the Dam over Summer 2024")
 adgb.set_ylim(0, 40)
 plt.savefig('BoxMcMISS24.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
 
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.boxplot(x='Distance From Dam', y='Microcystin BDL', data=Mc_24, showmeans=True, meanprops={'marker':'o','markerfacecolor':'black', 'markeredgecolor':'black', 'markersize':'5'}) 
 #https://www.geeksforgeeks.org/python/how-to-set-x-axis-values-in-matplotlib-in-python/
@@ -314,10 +318,11 @@ adgb.set_title("2024 Chla by Date")
 adgb.set_ylim(0, 160)
 plt.savefig('BoxCH_M24_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
-
+'''
 # LOOK 2023
 #
 #
+'''
 plt.figure(figsize=(12,6)) #space out recording
 adgb = sns.scatterplot(x='TURBIDITYFNU', y='Chla (Avg 24 and on)', data=c_23) 
 adgb.set_xlabel('Turbidity (FNU)')
@@ -406,3 +411,4 @@ adgb.set_title("2023 Chla by Date")
 adgb.set_ylim(0, 160)
 plt.savefig('BoxCH_M23_byDate.png', bbox_inches = 'tight', pad_inches=1,  dpi = 400)
 plt.show()
+'''
